@@ -1,4 +1,5 @@
 const CACHE_NAME = 'sharma-invoice-cache-v1';
+
 const urlsToCache = [
   './',
   './index.html',
@@ -24,6 +25,6 @@ self.addEventListener('activate', event => {
 
 self.addEventListener('fetch', event => {
   event.respondWith(
-    caches.match(event.request).then(resp => resp || fetch(event.request))
+    caches.match(event.request).then(response => response || fetch(event.request))
   );
 });
