@@ -3,7 +3,6 @@ const urlsToCache = [
   './',
   './index.html',
   './manifest.json',
-  // You can add CDN URLs if desired:
   'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js'
 ];
 
