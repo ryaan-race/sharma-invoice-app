@@ -8,18 +8,19 @@
   <meta name="theme-color" content="#6f42c1" />
   <link rel="icon" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=328,fit=crop,q=95/Aq2vz9xo5lcWbKB3/si-logo-dWxyGXReKrCp8b7y.png" type="image/png" />
   <style>
+    /* --- FULL CSS --- */
     *{box-sizing:border-box;}
     body {
-      margin:0;padding:0;
+      margin:0; padding:0;
       font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background:#f8f9fc;color:#222;
+      background:#f8f9fc; color:#222;
       transition: background-color 0.3s, color 0.3s;
     }
     .dark {
-      background:#23223a;color:#f5f5f5;
+      background:#23223a; color:#f5f5f5;
     }
     .wrapper {
-      max-width:960px;margin:1rem auto;padding:1rem;
+      max-width:960px; margin:1rem auto; padding:1rem;
     }
     .card {
       background:#fff;
@@ -30,12 +31,12 @@
       transition: background-color 0.3s, color 0.3s;
     }
     .dark .card {
-      background:#2a2a3d;color:#f5f5f5;
+      background:#2a2a3d; color:#f5f5f5;
     }
     .card h2 {
-      margin-top:0;color:#6f42c1;
+      margin-top:0; color:#6f42c1;
     }
-    input,select,textarea,button {
+    input, select, textarea, button {
       font-size:1rem;
       border-radius:6px;
       border:1px solid #ccc;
@@ -44,19 +45,19 @@
       font-family:inherit;
       transition: background-color 0.3s, color 0.3s, border-color 0.3s;
     }
-    input:focus,select:focus,textarea:focus {
+    input:focus, select:focus, textarea:focus {
       outline:none;
       border-color:#6f42c1;
       box-shadow:0 0 5px #6f42c1aa;
       background-color:#fff;
       color:#222;
     }
-    .dark input,.dark select,.dark textarea {
+    .dark input, .dark select, .dark textarea {
       background:#333347;
       color:#fff;
       border:1px solid #555;
     }
-    .dark input:focus,.dark select:focus,.dark textarea:focus {
+    .dark input:focus, .dark select:focus, .dark textarea:focus {
       background:#444458;
       border-color:#6f42c1;
       box-shadow:0 0 5px #6f42c1aa;
@@ -91,7 +92,7 @@
       border-collapse:collapse;
       margin-top:0.5rem;
     }
-    .item-table th,.item-table td {
+    .item-table th, .item-table td {
       border:1px solid #ccc;
       padding:0.5rem;
       text-align:left;
@@ -133,7 +134,7 @@
     .hidden {
       display:none !important;
     }
-    #loginMsg,#passMsg {
+    #loginMsg, #passMsg {
       color:#e74c3c;
       min-height:1.2em;
     }
@@ -141,7 +142,7 @@
       max-width:130px;
       border-radius:6px;
       cursor:pointer;
-      transition:opacity 0.3s;
+      transition: opacity 0.3s;
     }
     #companyLogo:hover {
       opacity:0.8;
@@ -161,8 +162,7 @@
       max-width: 360px;
       margin: 2rem auto;
     }
-
-    /* Hide these controls when printing */
+    /* Print styles */
     @media print {
       #darkModeToggle,
       label[for="darkModeToggle"],
@@ -184,8 +184,6 @@
         border: none !important;
       }
     }
-
-    /* Utility class to hide controls in UI */
     .hidden-controls {
       display: none !important;
     }
@@ -193,8 +191,7 @@
 </head>
 <body>
   <div class="wrapper" role="main">
-
-    <!-- LOGIN MODULE -->
+    <!-- Login Module -->
     <div id="loginDiv" class="card" role="region" aria-label="Login module">
       <h2>🔐 Secure Login</h2>
       <div>
@@ -202,33 +199,28 @@
         <button onclick="showRegister()" aria-label="Switch to Sign Up tab">Sign Up</button>
         <button onclick="showForgot()" aria-label="Switch to Forgot Password tab">Forgot Password?</button>
       </div>
-
       <div id="loginForm">
         <input type="text" id="loginUser" placeholder="Username" autocomplete="username" aria-label="Username" />
         <input type="password" id="loginPass" placeholder="Password" autocomplete="current-password" aria-label="Password" />
         <button onclick="handleLogin()">Login</button>
       </div>
-
       <div id="registerForm" class="hidden">
         <input type="text" id="registerUser" placeholder="Choose username" autocomplete="username" aria-label="Choose username" />
         <input type="password" id="registerPass" placeholder="Password" autocomplete="new-password" aria-label="Password" />
         <input type="password" id="registerPass2" placeholder="Confirm password" autocomplete="new-password" aria-label="Confirm password" />
         <button onclick="handleRegister()">Create Account</button>
       </div>
-
       <div id="forgotForm" class="hidden">
         <input type="text" id="forgotUser" placeholder="Enter your username" autocomplete="username" aria-label="Enter username" />
         <button onclick="handleForgot()">Continue</button>
-
         <input type="password" id="newPass" class="hidden" placeholder="New password" autocomplete="new-password" aria-label="New password" />
         <input type="password" id="newPass2" class="hidden" placeholder="Confirm new password" autocomplete="new-password" aria-label="Confirm new password" />
         <button id="setPassBtn" class="hidden" onclick="handleReset()">Set New Password</button>
       </div>
-
       <p id="loginMsg" role="alert" aria-live="assertive"></p>
     </div>
 
-    <!-- APP INTERFACE (hidden until login) -->
+    <!-- Main Invoice/Quotation UI -->
     <div id="mainApp" class="hidden" role="region" aria-label="Invoice app interface" aria-live="polite">
 
       <header class="card" style="text-align:center;">
@@ -372,13 +364,448 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
 
   <script>
-    // -- Full JavaScript as previously outlined ---
-    // Authentication helpers, UI show/hide, login/register/reset/change pass functions
-    
-    // Your full integrated JavaScript code here (same as section "Step 2" code in previous message)
-    // For brevity not restating to avoid length repetition, please copy the full script block from the previous step.
+    // Authentication helpers and UI
 
-    // If you want I can re-send the full JS block here again verbatim.
+    function getUsers() {
+      return JSON.parse(localStorage.getItem('si_users') || '[]');
+    }
+    function setUsers(users) {
+      localStorage.setItem('si_users', JSON.stringify(users));
+    }
+    function getSession() {
+      return JSON.parse(localStorage.getItem('si_session') || '{}');
+    }
+    function setSession(username) {
+      localStorage.setItem('si_session', JSON.stringify({current: username}));
+    }
+    function clearSession() {
+      localStorage.removeItem('si_session');
+    }
+
+    function showLogin() {
+      document.getElementById('loginForm').style.display = '';
+      document.getElementById('registerForm').classList.add('hidden');
+      document.getElementById('forgotForm').classList.add('hidden');
+      document.getElementById('loginMsg').innerText = '';
+    }
+    function showRegister() {
+      document.getElementById('loginForm').style.display = 'none';
+      document.getElementById('registerForm').classList.remove('hidden');
+      document.getElementById('forgotForm').classList.add('hidden');
+      document.getElementById('loginMsg').innerText = '';
+    }
+    function showForgot() {
+      document.getElementById('loginForm').style.display = 'none';
+      document.getElementById('registerForm').classList.add('hidden');
+      document.getElementById('forgotForm').classList.remove('hidden');
+      document.getElementById('loginMsg').innerText = '';
+    }
+
+    function handleRegister() {
+      const user = document.getElementById('registerUser').value.trim();
+      const pass = document.getElementById('registerPass').value;
+      const pass2 = document.getElementById('registerPass2').value;
+      if (!user || !pass) {
+        document.getElementById('loginMsg').innerText = "All fields are required.";
+        return;
+      }
+      if (pass !== pass2) {
+        document.getElementById('loginMsg').innerText = "Passwords do not match.";
+        return;
+      }
+      let users = getUsers();
+      if (users.some(u => u.username === user)) {
+        document.getElementById('loginMsg').innerText = "Username already exists.";
+        return;
+      }
+      users.push({username: user, password: pass});
+      setUsers(users);
+      document.getElementById('loginMsg').innerText = "Account created. Please login.";
+      showLogin();
+    }
+
+    function handleLogin() {
+      const user = document.getElementById('loginUser').value.trim();
+      const pass = document.getElementById('loginPass').value;
+      let users = getUsers();
+      if (users.length === 0 && user === "admin" && pass === "sharma123") {
+        setUsers([{username:"admin", password:"sharma123"}]);
+        users = getUsers();
+      }
+      if (users.some(u => u.username === user && u.password === pass)) {
+        setSession(user);
+        document.getElementById('loginDiv').style.display = 'none';
+        document.getElementById('mainApp').classList.remove('hidden');
+        initApp();
+      } else {
+        document.getElementById('loginMsg').innerText = "Invalid username or password.";
+      }
+    }
+
+    // Forgot password
+    let resetUser = null;
+    function handleForgot() {
+      const user = document.getElementById('forgotUser').value.trim();
+      let users = getUsers();
+      if (!users.some(u => u.username === user)) {
+        document.getElementById('loginMsg').innerText = "Username not found.";
+        return;
+      }
+      resetUser = user;
+      document.getElementById('newPass').classList.remove('hidden');
+      document.getElementById('newPass2').classList.remove('hidden');
+      document.getElementById('setPassBtn').classList.remove('hidden');
+      document.getElementById('loginMsg').innerText = "Please enter a new password.";
+    }
+    function handleReset() {
+      const np = document.getElementById('newPass').value;
+      const np2 = document.getElementById('newPass2').value;
+      if (!np || np !== np2) {
+        document.getElementById('loginMsg').innerText = "Passwords do not match.";
+        return;
+      }
+      let users = getUsers();
+      users = users.map(u => (u.username === resetUser) ? {...u, password: np} : u);
+      setUsers(users);
+      document.getElementById('loginMsg').innerText = "Password reset successfully. Please login.";
+      showLogin();
+      document.getElementById('newPass').value = "";
+      document.getElementById('newPass2').value = "";
+      document.getElementById('newPass').classList.add('hidden');
+      document.getElementById('newPass2').classList.add('hidden');
+      document.getElementById('setPassBtn').classList.add('hidden');
+    }
+
+    function showChangePassword() {
+      document.getElementById('changePassForm').classList.remove('hidden');
+      document.getElementById('passMsg').innerText = '';
+    }
+    function hideChangePassword() {
+      document.getElementById('changePassForm').classList.add('hidden');
+      document.getElementById('oldPass').value = '';
+      document.getElementById('newPass1').value = '';
+      document.getElementById('newPass1b').value = '';
+      document.getElementById('passMsg').innerText = '';
+    }
+    function handleChangePass() {
+      const oldp = document.getElementById('oldPass').value;
+      const newp = document.getElementById('newPass1').value;
+      const newp2 = document.getElementById('newPass1b').value;
+      const session = getSession();
+      let users = getUsers();
+      const userObj = users.find(u => u.username === session.current);
+      if (!oldp || !newp || !newp2) {
+        document.getElementById('passMsg').innerText = "Please fill all fields.";
+        return;
+      }
+      if (!userObj || userObj.password !== oldp) {
+        document.getElementById('passMsg').innerText = "Old password incorrect.";
+        return;
+      }
+      if (newp !== newp2) {
+        document.getElementById('passMsg').innerText = "New passwords do not match.";
+        return;
+      }
+      users = users.map(u => (u.username === session.current) ? {...u, password: newp} : u);
+      setUsers(users);
+      document.getElementById('passMsg').innerText = "Password updated successfully.";
+      setTimeout(hideChangePassword, 1500);
+    }
+    function logout() {
+      clearSession();
+      window.location.reload();
+    }
+
+    // Init on DOM ready
+    document.addEventListener('DOMContentLoaded', () => {
+      let session = getSession();
+      if(session.current) {
+        document.getElementById('loginDiv').style.display = 'none';
+        document.getElementById('mainApp').classList.remove('hidden');
+        initApp();
+      } else {
+        document.getElementById('mainApp').classList.add('hidden');
+        document.getElementById('loginDiv').style.display = '';
+        showLogin();
+      }
+    });
+
+    // Document number and UI update
+    function updateDocNumber() {
+      const type = document.getElementById("docType").value || "Quotation";
+      const key = type + "_Num";
+      let num = parseInt(localStorage.getItem(key) || "0") + 1;
+      localStorage.setItem(key, num);
+      const year = new Date().getFullYear();
+      document.getElementById("docNumber").value = `${type.slice(0,3).toUpperCase()}-${year}-${String(num).padStart(3, "0")}`;
+      updateUIForDocType();
+    }
+
+    // Client handling
+    let clients = JSON.parse(localStorage.getItem("clients") || "[]");
+    function saveClient() {
+      const n = document.getElementById("clientName").value.trim();
+      if(!n) return alert("Client name is required.");
+      const c = {
+        name: n,
+        company: document.getElementById('clientCompany').value.trim(),
+        email: document.getElementById('clientEmail').value.trim(),
+        phone: document.getElementById('clientPhone').value.trim(),
+        address: document.getElementById('clientAddress').value.trim(),
+        gst: document.getElementById('clientGST').value.trim()
+      };
+      clients.push(c);
+      localStorage.setItem("clients", JSON.stringify(clients));
+      renderClients();
+      alert("Client saved.");
+    }
+    function renderClients() {
+      const sel = document.getElementById("clientList");
+      sel.innerHTML = '<option value="">Load Client</option>';
+      clients.forEach((c,i) => { sel.innerHTML += `<option value="${i}">${c.name}${c.company ? ' ('+c.company+')' : ''}</option>`; });
+    }
+    function loadClient(i) {
+      if(i === "") return;
+      const c = clients[i];
+      if(!c) return;
+      document.getElementById("clientName").value = c.name;
+      document.getElementById("clientCompany").value = c.company || "";
+      document.getElementById("clientEmail").value = c.email || "";
+      document.getElementById("clientPhone").value = c.phone || "";
+      document.getElementById("clientAddress").value = c.address || "";
+      document.getElementById("clientGST").value = c.gst || "";
+    }
+
+    // Date and payment terms
+    document.addEventListener("DOMContentLoaded", function() {
+      document.getElementById("invoiceDate").valueAsDate = new Date();
+      document.getElementById("docType").onchange = updateDocNumber;
+      document.getElementById("invoiceDate").onchange = calcDueDate;
+      document.getElementById("paymentTerms").onchange = calcDueDate;
+    });
+    function calcDueDate() {
+      const term = parseInt(document.getElementById("paymentTerms").value || "0");
+      const d = document.getElementById("invoiceDate").value;
+      if (!d) return;
+      let date = new Date(d);
+      if (!isNaN(term)) {
+        date.setDate(date.getDate() + term);
+      }
+      document.getElementById("dueDate").valueAsDate = date;
+    }
+
+    // Item management
+    let items = [];
+    function addItem() {
+      const desc = document.getElementById("itemDesc").value.trim();
+      const qty = parseFloat(document.getElementById("itemQty").value);
+      const rate = parseFloat(document.getElementById("itemRate").value);
+      if (!desc || qty <= 0 || rate <= 0) {
+        alert("Please enter valid item description, quantity, and rate.");
+        return;
+      }
+      items.push({desc, qty, rate});
+      document.getElementById("itemDesc").value = "";
+      document.getElementById("itemQty").value = "";
+      document.getElementById("itemRate").value = "";
+      renderItems();
+    }
+    function removeItem(i) {
+      items.splice(i, 1);
+      renderItems();
+    }
+    function renderItems() {
+      const body = document.getElementById("itemTableBody");
+      body.innerHTML = "";
+      let total = 0;
+      items.forEach((item, idx) => {
+        const amt = item.qty * item.rate;
+        total += amt;
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${item.desc}</td>
+          <td>${item.qty}</td>
+          <td>₹${item.rate.toFixed(2)}</td>
+          <td>₹${amt.toFixed(2)}</td>
+          <td><button onclick="removeItem(${idx})" aria-label="Remove item ${item.desc}">X</button></td>
+        `;
+        body.appendChild(tr);
+      });
+      const gst = parseFloat(document.getElementById("gstInput").value) || 0;
+      const discount = parseFloat(document.getElementById("discountInput").value) || 0;
+      const dtype = document.getElementById("discountType").value;
+      const gstAmt = (total * gst) / 100;
+      const discAmt = dtype === "percent" ? (total * discount / 100) : discount;
+      const finalTotal = total + gstAmt - discAmt;
+      document.getElementById("grandTotal").innerText = finalTotal > 0 ? finalTotal.toFixed(2) : "0.00";
+    }
+    ["gstInput", "discountInput", "discountType"].forEach(id => {
+      document.getElementById(id).oninput = renderItems;
+    });
+
+    // PDF export
+    function savePDF() {
+      const element = document.querySelector(".wrapper");
+      const opt = {
+        margin: 10,
+        filename: 'Sharma-Interiors-Invoice.pdf',
+        image: {type: 'jpeg', quality: 0.98},
+        html2canvas: {scale: 2},
+        jsPDF: {unit: 'mm', format: 'a4', orientation: 'portrait'}
+      };
+      html2pdf().set(opt).from(element).save();
+    }
+
+    // Logo upload
+    document.getElementById("uploadLogo").addEventListener("change", function(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        document.getElementById("companyLogo").src = event.target.result;
+      }
+      reader.readAsDataURL(file);
+    });
+
+    // Dark mode toggle
+    document.getElementById("darkModeToggle").addEventListener("change", function(e) {
+      if (e.target.checked) {
+        document.body.classList.add("dark");
+      } else {
+        document.body.classList.remove("dark");
+      }
+    });
+
+    // PWA Service worker registration
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js')
+      .then(() => console.log('✅ Service Worker Registered'))
+      .catch(err => console.warn('⚠️ Service Worker registration failed:', err));
+    }
+
+    // Update UI for doc type
+    function updateUIForDocType() {
+      const docType = document.getElementById('docType').value.toLowerCase();
+      const controls = document.querySelectorAll('#darkModeToggle, .action-buttons, #changePassForm');
+      if (docType === 'invoice') {
+        controls.forEach(el => el.classList.add('hidden-controls'));
+      } else {
+        controls.forEach(el => el.classList.remove('hidden-controls'));
+      }
+    }
+    document.getElementById('docType').addEventListener('change', updateUIForDocType);
+
+    // Initialize app view
+    function initApp() {
+      updateDocNumber();
+      document.getElementById("invoiceDate").valueAsDate = new Date();
+      calcDueDate();
+      renderClients();
+      renderItems();
+      updateUIForDocType();
+    }
+
+    // Save quote as JSON file
+    function saveQuote() {
+      const data = {
+        docType: document.getElementById("docType").value,
+        docNumber: document.getElementById("docNumber").value,
+        invoiceDate: document.getElementById("invoiceDate").value,
+        dueDate: document.getElementById("dueDate").value,
+        client: {
+          name: document.getElementById("clientName").value,
+          company: document.getElementById("clientCompany").value,
+          email: document.getElementById("clientEmail").value,
+          phone: document.getElementById("clientPhone").value,
+          address: document.getElementById("clientAddress").value,
+          gst: document.getElementById("clientGST").value,
+          paymentTerms: document.getElementById("paymentTerms").value,
+          paymentStatus: document.getElementById("paymentStatus").value
+        },
+        items: items,
+        gstPercent: parseFloat(document.getElementById("gstInput").value) || 0,
+        discount: parseFloat(document.getElementById("discountInput").value) || 0,
+        discountType: document.getElementById("discountType").value,
+        terms: document.getElementById("terms").value,
+        grandTotal: document.getElementById("grandTotal").innerText
+      };
+
+      const blob = new Blob([JSON.stringify(data, null, 2)], {type: "application/json"});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = data.docType + '_' + data.docNumber + '.json';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    // Export Excel CSV
+    function saveExcel() {
+      let csvContent = 'Description,Qty,Rate,Amount\n';
+      items.forEach(item => {
+        const amt = (item.qty * item.rate).toFixed(2);
+        csvContent += `"${item.desc}",${item.qty},${item.rate.toFixed(2)},${amt}\n`;
+      });
+
+      const grandTotal = document.getElementById("grandTotal").innerText;
+      csvContent += `,,Grand Total,${grandTotal}\n`;
+
+      const blob = new Blob([csvContent], {type: 'text/csv;charset=utf-8;'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `Invoice_${document.getElementById("docNumber").value || 'export'}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    // Email share
+    function shareEmail() {
+      const yourEmail = 'ashoksharma83.pune@gmail.com';
+      const subject = `${document.getElementById("docType").value} from Sharma Interiors - ${document.getElementById("docNumber").value}`;
+
+      let body = `Dear ${document.getElementById("clientName").value},\n\n` +
+                `Please find your ${document.getElementById("docType").value} details below:\n\n` +
+                `Date: ${document.getElementById("invoiceDate").value}\n\n` +
+                `Client Info:\nCompany: ${document.getElementById("clientCompany").value}\n` +
+                `Email: ${document.getElementById("clientEmail").value}\n` +
+                `Phone: ${document.getElementById("clientPhone").value}\n` +
+                `Address: ${document.getElementById("clientAddress").value}\n\n` +
+                `Items:\n`;
+
+      items.forEach(item => {
+        body += ` - ${item.desc}, Qty: ${item.qty}, Rate: ₹${item.rate.toFixed(2)}, Amount: ₹${(item.qty*item.rate).toFixed(2)}\n`;
+      });
+
+      body += `\nGrand Total: ₹${document.getElementById("grandTotal").innerText}\n\nThank you,\nSharma Interiors`;
+
+      const mailtoLink = `mailto:${yourEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.location.href = mailtoLink;
+    }
+
+    // WhatsApp share with your number
+    function shareWhatsApp() {
+      const phone = '919850019125';
+      let text = `*${document.getElementById("docType").value}* #${document.getElementById("docNumber").value}\n` +
+        `Date: ${document.getElementById("invoiceDate").value}\n\n` +
+        `*Client:* ${document.getElementById("clientName").value}\n` +
+        `Phone: ${document.getElementById("clientPhone").value}\n\n` +
+        `*Items:*\n`;
+
+      items.forEach(item => {
+        text += `- ${item.desc}, Qty: ${item.qty}, Rate: ₹${item.rate.toFixed(2)}, Amount: ₹${(item.qty*item.rate).toFixed(2)}\n`;
+      });
+
+      text += `\n*Grand Total:* ₹${document.getElementById("grandTotal").innerText}`;
+
+      const encodedText = encodeURIComponent(text);
+      const waUrl = `https://wa.me/${phone}?text=${encodedText}`;
+      window.open(waUrl, '_blank');
+    }
   </script>
 </body>
 </html>
