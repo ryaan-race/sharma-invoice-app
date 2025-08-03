@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sharma Interiors – Invoice & Quotation</title>
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#6f42c1" />
+  <link rel="icon" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=328,fit=crop,q=95/Aq2vz9xo5lcWbKB3/si-logo-dWxyGXReKrCp8b7y.png" type="image/png" />
+  <style>
+    /* CSS styles from the final version */
+    *{box-sizing:border-box;}
+    body {
+      margin:0;padding:0;
+      font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background:#f8f9fc;color:#222;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .dark {
+      background:#23223a;color:#f5f5f5;
+    }
+    .wrapper {
+      max-width:960px;margin:1rem auto;padding:1rem;
+    }
+    .card {
+      background:#fff;
+      border-radius:8px;
+      padding:1rem;
+      margin-bottom:1rem;
+      box-shadow:0 2px 5px rgba(0,0,0,.07);
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .dark .card {
+      background:#2a2a3d;color:#f5f5f5;
+    }
+    .card h2 {
+      margin-top:0;color:#6f42c1;
+    }
+    input,select,textarea,button {
+      font-size:1rem;
+      border-radius:6px;
+      border:1px solid #ccc;
+      padding:0.7rem;
+      margin:5px 0;
+      font-family:inherit;
+      transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    }
+    input:focus,select:focus,textarea:focus {
+      outline:none;
+      border-color:#6f42c1;
+      box-shadow:0 0 5px #6f42c1aa;
+      background-color:#fff;
+      color:#222;
+    }
+    .dark input,.dark select,.dark textarea {
+      background:#333347;
+      color:#fff;
+      border:1px solid #555;
+    }
+    .dark input:focus,.dark select:focus,.dark textarea:focus {
+      background:#444458;
+      border-color:#6f42c1;
+      box-shadow:0 0 5px #6f42c1aa;
+    }
+    button {
+      background:#6f42c1;
+      color:#fff;
+      border:none;
+      cursor:pointer;
+      transition: background-color 0.3s;
+      min-width: 120px;
+    }
+    button:hover {
+      background:#5533a0;
+    }
+    .row {
+      display:flex;
+      flex-wrap:wrap;
+      gap:1rem;
+    }
+    .row > * {
+      flex:1;
+      min-width:120px;
+    }
+    @media(max-width:640px){
+      .row {
+        flex-direction:column;
+      }
+    }
+    .item-table {
+      width:100%;
+      border-collapse:collapse;
+      margin-top:0.5rem;
+    }
+    .item-table th,.item-table td {
+      border:1px solid #ccc;
+      padding:0.5rem;
+      text-align:left;
+      vertical-align: middle;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .dark .item-table th {
+      background:#3d3d5a;
+    }
+    .dark .item-table td {
+      background:#2d2d45;
+    }
+    .item-table th {
+      background:#f4f0fb;
+    }
+    .item-table td button {
+      background:#e74c3c;
+      padding:3px 10px;
+      font-size:0.9em;
+      border-radius: 4px;
+      border:none;
+      cursor:pointer;
+      color:#fff;
+      transition: background-color 0.3s;
+    }
+    .item-table td button:hover {
+      background:#c0392b;
+    }
+    .total-display {
+      font-size:1.3rem;
+      font-weight:bold;
+      margin: 0.5rem 0;
+    }
+    textarea#terms {
+      min-height:80px;
+      width: 100%;
+      resize: vertical;
+    }
+    .hidden {
+      display:none !important;
+    }
+    #loginMsg,#passMsg {
+      color:#e74c3c;
+      min-height:1.2em;
+    }
+    #companyLogo {
+      max-width:130px;
+      border-radius:6px;
+      cursor:pointer;
+      transition:opacity 0.3s;
+    }
+    #companyLogo:hover {
+      opacity:0.8;
+    }
+    .action-buttons {
+      text-align:center;
+      margin: 2rem 0 1rem;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .action-buttons button {
+      min-width: 140px;
+    }
+    #changePassForm {
+      max-width: 360px;
+      margin: 2rem auto;
+    }
+  </style>
+</head>
+<body>
+<div class="wrapper">
+
+<!-- LOGIN MODULE -->
+<div id="loginDiv" class="card" role="main">
+  <h2>🔐 Secure Login</h2>
+  <div>
+    <button onclick="showLogin()" aria-label="Switch to Login tab">Login</button>
+    <button onclick="showRegister()" aria-label="Switch to Sign Up tab">Sign Up</button>
+    <button onclick="showForgot()" aria-label="Switch to Forgot Password tab">Forgot Password?</button>
+  </div>
+
+  <div id="loginForm">
+    <input type="text" id="loginUser" placeholder="Username" autocomplete="username" />
+    <input type="password" id="loginPass" placeholder="Password" autocomplete="current-password" />
+    <button onclick="handleLogin()">Login</button>
+  </div>
+
+  <div id="registerForm" class="hidden">
+    <input type="text" id="registerUser" placeholder="Choose username" autocomplete="username" />
+    <input type="password" id="registerPass" placeholder="Password" autocomplete="new-password" />
+    <input type="password" id="registerPass2" placeholder="Confirm password" autocomplete="new-password" />
+    <button onclick="handleRegister()">Create Account</button>
+  </div>
+
+  <div id="forgotForm" class="hidden">
+    <input type="text" id="forgotUser" placeholder="Enter your username" autocomplete="username" />
+    <button onclick="handleForgot()">Continue</button>
+
+    <input type="password" id="newPass" class="hidden" placeholder="New password" autocomplete="new-password" />
+    <input type="password" id="newPass2" class="hidden" placeholder="Confirm new password" autocomplete="new-password" />
+    <button id="setPassBtn" class="hidden" onclick="handleReset()">Set New Password</button>
+  </div>
+
+  <p id="loginMsg" role="alert"></p>
+</div>
+
+<!-- APP INTERFACE (hidden until login) -->
+<div id="mainApp" class="hidden" role="main" aria-live="polite">
+
+  <header class="card" style="text-align:center;">
+    <img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=328,fit=crop,q=95/Aq2vz9xo5lcWbKB3/si-logo-dWxyGXReKrCp8b7y.png"
+         id="companyLogo"
+         alt="Sharma Interiors Logo"
+         title="Click to upload a new logo"
+         onclick="document.getElementById('uploadLogo').click()" />
+    <input type="file" id="uploadLogo" hidden accept="image/*" />
+    <h1>Sharma Interiors</h1>
+    <p>S No. 27, Bhosale Khedekar Industries, Narhe, Pune - 411041</p>
+    <p>Email: ashoksharma83.pune@gmail.com | Phone: +91-98500-19125</p>
+  </header>
+
+  <section class="card row">
+    <div><label>Type:</label>
+      <select id="docType"><option>Quotation</option><option>Invoice</option></select>
+    </div>
+    <div><label>Doc #:</label>
+      <input id="docNumber" readonly aria-readonly="true" />
+    </div>
+    <div><label>Date:</label>
+      <input type="date" id="invoiceDate" />
+    </div>
+    <div><label>Due Date:</label>
+      <input type="date" id="dueDate" readonly aria-readonly="true" />
+    </div>
+    <div style="align-self:center;">
+      <label><input type="checkbox" id="darkModeToggle" />&nbsp;Dark Mode</label>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>👤 Client Information</h2>
+    <div class="row">
+      <input id="clientName" placeholder="Name *" />
+      <input id="clientCompany" placeholder="Company" />
+    </div>
+    <div class="row">
+      <input id="clientEmail" placeholder="Email *" />
+      <input id="clientPhone" placeholder="Phone *" />
+    </div>
+    <input id="clientAddress" placeholder="Billing Address *" />
+    <div class="row">
+      <input id="clientGST" placeholder="GST No." />
+      <select id="paymentTerms">
+        <option value="">Payment Terms</option>
+        <option value="0">Advance</option>
+        <option value="7">7 Days</option>
+        <option value="15">15 Days</option>
+        <option value="30">30 Days</option>
+      </select>
+      <select id="paymentStatus">
+        <option>Unpaid</option>
+        <option>Paid</option>
+        <option>Partial</option>
+        <option>Overdue</option>
+      </select>
+    </div>
+    <div class="row">
+      <button onclick="saveClient()">💾 Save Client</button>
+      <select id="clientList" onchange="loadClient(this.value)">
+        <option value="">Load Client</option>
+      </select>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>🧾 Item Details</h2>
+    <div class="row">
+      <input id="itemDesc" list="itemLib" placeholder="Description" />
+      <input id="itemQty" type="number" placeholder="Qty" min="0" />
+      <input id="itemRate" type="number" placeholder="Rate ₹" min="0" step="0.01" />
+      <button onclick="addItem()">➕ Add Item</button>
+    </div>
+    <datalist id="itemLib">
+      <option value="False Ceiling POP" />
+      <option value="Kitchen Modular Setup" />
+      <option value="Wooden Wardrobe" />
+      <option value="Interior Painting - Bedroom" />
+      <option value="Electrical Setup" />
+    </datalist>
+    <table class="item-table" aria-label="Invoice items table">
+      <thead>
+        <tr>
+          <th>Description</th>
+          <th>Qty</th>
+          <th>Rate</th>
+          <th>Amount</th>
+          <th>Remove</th>
+        </tr>
+      </thead>
+      <tbody id="itemTableBody"></tbody>
+    </table>
+    <div class="row">
+      <input type="number" id="gstInput" placeholder="GST %" min="0" max="100" step="0.01" />
+      <input type="number" id="discountInput" placeholder="Discount" min="0" step="0.01" />
+      <select id="discountType">
+        <option value="flat">Flat ₹</option>
+        <option value="percent">%</option>
+      </select>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>📊 Summary</h2>
+    <p class="total-display">Grand Total: ₹ <span id="grandTotal">0.00</span></p>
+  </section>
+
+  <section class="card">
+    <h2>📜 Terms & Conditions</h2>
+    <textarea id="terms">Payment is due as per agreed terms. Late payments may incur penalties.</textarea>
+  </section>
+
+  <div class="action-buttons">
+    <button onclick="window.print()">🖨 Print</button>
+    <button onclick="savePDF()">⬇ Download PDF</button>
+    <button onclick="logout()">🚪 Logout</button>
+    <button onclick="showChangePassword()">🔑 Change Password</button>
+  </div>
+
+  <div id="changePassForm" class="card hidden" role="dialog" aria-modal="true" aria-labelledby="changePassTitle">
+    <h3 id="changePassTitle">Change Password</h3>
+    <input type="password" id="oldPass" placeholder="Old password" autocomplete="current-password" />
+    <input type="password" id="newPass1" placeholder="New password" autocomplete="new-password" />
+    <input type="password" id="newPass1b" placeholder="Confirm new password" autocomplete="new-password" />
+    <button onclick="handleChangePass()">Update Password</button>
+    <button onclick="hideChangePassword()">Cancel</button>
+    <p id="passMsg"></p>
+  </div>
+</div>
+
+<!-- pdf export lib -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+
+<script>
+  // Authentication and UI logic
+
+  function getUsers() {
+    return JSON.parse(localStorage.getItem('si_users') || '[]');
+  }
+  function setUsers(users) {
+    localStorage.setItem('si_users', JSON.stringify(users));
+  }
+  function getSession() {
+    return JSON.parse(localStorage.getItem('si_session') || '{}');
+  }
+  function setSession(username) {
+    localStorage.setItem('si_session', JSON.stringify({current: username}));
+  }
+  function clearSession() {
+    localStorage.removeItem('si_session');
+  }
+
+  function showLogin() {
+    document.getElementById('loginForm').style.display = '';
+    document.getElementById('registerForm').classList.add('hidden');
+    document.getElementById('forgotForm').classList.add('hidden');
+    document.getElementById('loginMsg').innerText = '';
+  }
+  function showRegister() {
+    document.getElementById('loginForm').style.display = 'none';
+    document.getElementById('registerForm').classList.remove('hidden');
+    document.getElementById('forgotForm').classList.add('hidden');
+    document.getElementById('loginMsg').innerText = '';
+  }
+  function showForgot() {
+    document.getElementById('loginForm').style.display = 'none';
+    document.getElementById('registerForm').classList.add('hidden');
+    document.getElementById('forgotForm').classList.remove('hidden');
+    document.getElementById('loginMsg').innerText = '';
+  }
+
+  function handleRegister() {
+    const user = document.getElementById('registerUser').value.trim();
+    const pass = document.getElementById('registerPass').value;
+    const pass2 = document.getElementById('registerPass2').value;
+    if (!user || !pass) {
+      document.getElementById('loginMsg').innerText = "All fields are required.";
+      return;
+    }
+    if (pass !== pass2) {
+      document.getElementById('loginMsg').innerText = "Passwords do not match.";
+      return;
+    }
+    let users = getUsers();
+    if (users.some(u => u.username === user)) {
+      document.getElementById('loginMsg').innerText = "Username already exists.";
+      return;
+    }
+    users.push({username: user, password: pass});
+    setUsers(users);
+    document.getElementById('loginMsg').innerText = "Account created. Please login.";
+    showLogin();
+  }
+  function handleLogin() {
+    const user = document.getElementById('loginUser').value.trim();
+    const pass = document.getElementById('loginPass').value;
+    let users = getUsers();
+    if (users.length === 0 && user === "admin" && pass === "sharma123") {
+      setUsers([{username:"admin", password:"sharma123"}]);
+      users = getUsers();
+    }
+    if (users.some(u => u.username === user && u.password === pass)) {
+      setSession(user);
+      document.getElementById('loginDiv').style.display = 'none';
+      document.getElementById('mainApp').classList.remove('hidden');
+      initApp();
+    } else {
+      document.getElementById('loginMsg').innerText = "Invalid username or password.";
+    }
+  }
+
+  // Forgot Password
+  let resetUser = null;
+  function handleForgot() {
+    const user = document.getElementById('forgotUser').value.trim();
+    let users = getUsers();
+    if (!users.some(u => u.username === user)) {
+      document.getElementById('loginMsg').innerText = "Username not found.";
+      return;
+    }
+    resetUser = user;
+    document.getElementById('newPass').classList.remove('hidden');
+    document.getElementById('newPass2').classList.remove('hidden');
+    document.getElementById('setPassBtn').classList.remove('hidden');
+    document.getElementById('loginMsg').innerText = "Please enter a new password.";
+  }
+  function handleReset() {
+    const np = document.getElementById('newPass').value;
+    const np2 = document.getElementById('newPass2').value;
+    if (!np || np !== np2) {
+      document.getElementById('loginMsg').innerText = "Passwords do not match.";
+      return;
+    }
+    let users = getUsers();
+    users = users.map(u => (u.username === resetUser) ? {...u, password: np} : u);
+    setUsers(users);
+    document.getElementById('loginMsg').innerText = "Password reset successfully. Please login.";
+    showLogin();
+    document.getElementById('newPass').value = "";
+    document.getElementById('newPass2').value = "";
+    document.getElementById('newPass').classList.add('hidden');
+    document.getElementById('newPass2').classList.add('hidden');
+    document.getElementById('setPassBtn').classList.add('hidden');
+  }
+
+  // Change Password
+  function showChangePassword() {
+    document.getElementById('changePassForm').classList.remove('hidden');
+    document.getElementById('passMsg').innerText = '';
+  }
+  function hideChangePassword() {
+    document.getElementById('changePassForm').classList.add('hidden');
+    document.getElementById('oldPass').value = '';
+    document.getElementById('newPass1').value = '';
+    document.getElementById('newPass1b').value = '';
+    document.getElementById('passMsg').innerText = '';
+  }
+  function handleChangePass() {
+    const oldp = document.getElementById('oldPass').value;
+    const newp = document.getElementById('newPass1').value;
+    const newp2 = document.getElementById('newPass1b').value;
+    const session = getSession();
+    let users = getUsers();
+    const userObj = users.find(u => u.username === session.current);
+    if (!oldp || !newp || !newp2) {
+      document.getElementById('passMsg').innerText = "Please fill all fields.";
+      return;
+    }
+    if (!userObj || userObj.password !== oldp) {
+      document.getElementById('passMsg').innerText = "Old password incorrect.";
+      return;
+    }
+    if (newp !== newp2) {
+      document.getElementById('passMsg').innerText = "New passwords do not match.";
+      return;
+    }
+    users = users.map(u => (u.username === session.current) ? {...u, password: newp} : u);
+    setUsers(users);
+    document.getElementById('passMsg').innerText = "Password updated successfully.";
+    setTimeout(hideChangePassword, 1500);
+  }
+  function logout() {
+    clearSession();
+    window.location.reload();
+  }
+
+  // INIT
+  document.addEventListener('DOMContentLoaded', () => {
+    let session = getSession();
+    if(session.current) {
+      document.getElementById('loginDiv').style.display = 'none';
+      document.getElementById('mainApp').classList.remove('hidden');
+      initApp();
+    } else {
+      document.getElementById('mainApp').classList.add('hidden');
+      document.getElementById('loginDiv').style.display = '';
+      showLogin();
+    }
+  });
+
+  // Invoice Document Number
+  function updateDocNumber() {
+    const type = document.getElementById("docType").value || "Quotation";
+    const key = type + "_Num";
+    let num = parseInt(localStorage.getItem(key) || "0") + 1;
+    localStorage.setItem(key, num);
+    const year = new Date().getFullYear();
+    document.getElementById("docNumber").value = `${type.slice(0,3).toUpperCase()}-${year}-${String(num).padStart(3, "0")}`;
+  }
+
+  // Client save/load
+  let clients = JSON.parse(localStorage.getItem("clients") || "[]");
+  function saveClient() {
+    const n = document.getElementById("clientName").value.trim();
+    if(!n) return alert("Client name is required.");
+    const c = {
+      name: n,
+      company: document.getElementById('clientCompany').value.trim(),
+      email: document.getElementById('clientEmail').value.trim(),
+      phone: document.getElementById('clientPhone').value.trim(),
+      address: document.getElementById('clientAddress').value.trim(),
+      gst: document.getElementById('clientGST').value.trim()
+    };
+    clients.push(c);
+    localStorage.setItem("clients", JSON.stringify(clients));
+    renderClients();
+    alert("Client saved.");
+  }
+  function renderClients() {
+    const sel = document.getElementById("clientList");
+    sel.innerHTML = '<option value="">Load Client</option>';
+    clients.forEach((c,i) => { sel.innerHTML += `<option value="${i}">${c.name}${c.company ? ' ('+c.company+')' : ''}</option>`; });
+  }
+  function loadClient(i) {
+    if(i === "") return;
+    const c = clients[i];
+    if(!c) return;
+    document.getElementById("clientName").value = c.name;
+    document.getElementById("clientCompany").value = c.company || "";
+    document.getElementById("clientEmail").value = c.email || "";
+    document.getElementById("clientPhone").value = c.phone || "";
+    document.getElementById("clientAddress").value = c.address || "";
+    document.getElementById("clientGST").value = c.gst || "";
+  }
+
+  // Dates
+  document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("invoiceDate").valueAsDate = new Date();
+    document.getElementById("docType").onchange = updateDocNumber;
+    document.getElementById("invoiceDate").onchange = calcDueDate;
+    document.getElementById("paymentTerms").onchange = calcDueDate;
+  });
+  function calcDueDate() {
+    const term = parseInt(document.getElementById("paymentTerms").value || "0");
+    const d = document.getElementById("invoiceDate").value;
+    if (!d) return;
+    let date = new Date(d);
+    if (!isNaN(term)) {
+      date.setDate(date.getDate() + term);
+    }
+    document.getElementById("dueDate").valueAsDate = date;
+  }
+
+  // Item table
+  let items = [];
+  function addItem() {
+    const desc = document.getElementById("itemDesc").value.trim();
+    const qty = parseFloat(document.getElementById("itemQty").value);
+    const rate = parseFloat(document.getElementById("itemRate").value);
+    if (!desc || qty <= 0 || rate <= 0) {
+      alert("Please enter valid item description, quantity, and rate.");
+      return;
+    }
+    items.push({desc, qty, rate});
+    document.getElementById("itemDesc").value = "";
+    document.getElementById("itemQty").value = "";
+    document.getElementById("itemRate").value = "";
+    renderItems();
+  }
+  function removeItem(i) {
+    items.splice(i, 1);
+    renderItems();
+  }
+  function renderItems() {
+    const body = document.getElementById("itemTableBody");
+    body.innerHTML = "";
+    let total = 0;
+    items.forEach((item, idx) => {
+      const amt = item.qty * item.rate;
+      total += amt;
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${item.desc}</td>
+        <td>${item.qty}</td>
+        <td>₹${item.rate.toFixed(2)}</td>
+        <td>₹${amt.toFixed(2)}</td>
+        <td><button onclick="removeItem(${idx})" aria-label="Remove item ${item.desc}">X</button></td>
+      `;
+      body.appendChild(tr);
+    });
+    const gst = parseFloat(document.getElementById("gstInput").value) || 0;
+    const discount = parseFloat(document.getElementById("discountInput").value) || 0;
+    const dtype = document.getElementById("discountType").value;
+    const gstAmt = (total * gst) / 100;
+    const discAmt = dtype === "percent" ? (total * discount / 100) : discount;
+    const finalTotal = total + gstAmt - discAmt;
+    document.getElementById("grandTotal").innerText = finalTotal > 0 ? finalTotal.toFixed(2) : "0.00";
+  }
+  ["gstInput", "discountInput", "discountType"].forEach(id => {
+    document.getElementById(id).oninput = renderItems;
+  });
+
+  // PDF export
+  function savePDF() {
+    const element = document.querySelector(".wrapper");
+    const opt = {
+      margin: 10,
+      filename: 'Sharma-Interiors-Invoice.pdf',
+      image: {type: 'jpeg', quality: 0.98},
+      html2canvas: {scale: 2},
+      jsPDF: {unit: 'mm', format: 'a4', orientation: 'portrait'}
+    };
+    html2pdf().set(opt).from(element).save();
+  }
+
+  // Logo upload
+  document.getElementById("uploadLogo").addEventListener("change", function(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(event) {
+      document.getElementById("companyLogo").src = event.target.result;
+    }
+    reader.readAsDataURL(file);
+  });
+
+  // Dark mode toggle
+  document.getElementById("darkModeToggle").addEventListener("change", function(e) {
+    if (e.target.checked) {
+      document.body.classList.add("dark");
+    } else {
+      document.body.classList.remove("dark");
+    }
+  });
+
+  // PWA Service worker register
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('service-worker.js')
+      .then(() => console.log('✅ Service Worker Registered'))
+      .catch(err => console.warn('⚠️ Service Worker registration failed:', err));
+  }
+
+  // App init helper
+  function initApp() {
+    updateDocNumber();
+    document.getElementById("invoiceDate").valueAsDate = new Date();
+    calcDueDate();
+    renderClients();
+    renderItems();
+  }
+</script>
+</body>
+</html>

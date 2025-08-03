@@ -1,0 +1,20 @@
+{
+  "short_name": "SharmaInvoice",
+  "name": "Sharma Interiors Invoice & Quotation App",
+  "icons": [
+    {
+      "src": "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=328,fit=crop,q=95/Aq2vz9xo5lcWbKB3/si-logo-dWxyGXReKrCp8b7y.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=512,fit=crop,q=95/Aq2vz9xo5lcWbKB3/si-logo-dWxyGXReKrCp8b7y.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#6f42c1",
+  "theme_color": "#6f42c1"
+}
